@@ -1,7 +1,14 @@
-import "./App.css";
+import './App.css';
+import Header from './components/Header/Header';
+import MainPage from './components/MainPage';
 
 function App() {
-  return <h1>Self-Paced React</h1>;
+  return (
+    <>
+      <Header />
+      <MainPage />
+    </>
+  );
 }
 
 export default App;
