@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { restaurants } from '../db.json';
 import CategoryFilter from './components/CategoryFilter/CategoryFilter';
@@ -10,15 +10,7 @@ import RestaurantList from './components/RestaurantList/RestaurantList';
 
 function App() {
   const [category, setCategory] = useState('전체');
-  const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
-
-  useEffect(() => {
-    if (category === '전체') {
-      setFilteredRestaurants(restaurants);
-    } else {
-      setFilteredRestaurants(restaurants.filter((restaurant) => restaurant.category === category));
-    }
-  }, [category]);
+  const filteredRestaurants = category === '전체' ? restaurants : restaurants.filter((restaurant) => restaurant.category === category);
 
   return (
     <>
@@ -28,8 +20,8 @@ function App() {
         <RestaurantList restaurants={filteredRestaurants} />
       </main>
       <aside>
-        {/* <RestaurantInfoModal />
-        <AddRestaurantModal /> */}
+        {/* <RestaurantInfoModal /> */}
+        {/* <AddRestaurantModal /> */}
       </aside>
     </>
   );
