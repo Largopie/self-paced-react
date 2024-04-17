@@ -1,9 +1,16 @@
-import styles from './restaurant-filter.module.css';
+import styles from './category-filter.module.css';
 
-export default function RestaurantFilter() {
+export default function CategoryFilter({ category, setCategory }) {
   return (
     <section className={styles.restaurantFilterContainer}>
-      <select name='category' id='category-filter' className={styles.restaurantFilter} aria-label='음식점 카테고리 필터'>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        name='category'
+        id='category-filter'
+        className={styles.restaurantFilter}
+        aria-label='음식점 카테고리 필터'
+      >
         <option value='전체'>전체</option>
         <option value='한식'>한식</option>
         <option value='중식'>중식</option>

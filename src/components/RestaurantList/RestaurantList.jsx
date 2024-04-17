@@ -1,8 +1,7 @@
 import styles from './restaurant-list.module.css';
-import { restaurants } from '../../../db.json';
 import IMAGE_SOURCE from '../../../templates';
 
-export default function RestaurantList() {
+export default function RestaurantList({ restaurants }) {
   return (
     <section className={styles.restaurantListContainer}>
       <ul className={styles.restaurantList}>
