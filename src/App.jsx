@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { restaurants } from '../db.json';
 import CategoryFilter from './components/CategoryFilter/CategoryFilter';
 import Header from './components/Header/Header';
 import RestaurantInfoModal from './components/Modal/RestaurantInfoModal/RestaurantInfoModal';
 import AddRestaurantModal from './components/Modal/AddRestaurantModal/AddRestaurantModal';
 
 import RestaurantList from './components/RestaurantList/RestaurantList';
+import { getRestaurants } from './api/restaurant-api';
 
 function App() {
-  const [restaurantList, setRestaurantList] = useState(restaurants);
+  const [restaurantList, setRestaurantList] = useState([]);
   const [category, setCategory] = useState('전체');
   const filteredRestaurants = category === '전체' ? restaurantList : restaurantList.filter((restaurant) => restaurant.category === category);
 
@@ -24,15 +24,15 @@ function App() {
   const closeAddRestaurant = () => setIsAddRestaurantOpen(false);
   const openAddRestaurant = () => setIsAddRestaurantOpen(true);
 
-  const addRestaurant = (restaurant) => {
-    setRestaurantList([
-      {
-        id: Date.now(),
-        ...restaurant,
-      },
-      ...restaurantList,
-    ]);
+  const fetchRestaurant = async () => {
+    const data = await getRestaurants();
+
+    setRestaurantList(data);
   };
+
+  useEffect(() => {
+    fetchRestaurant();
+  }, []);
 
   return (
     <>
@@ -43,7 +43,7 @@ function App() {
       </main>
       <aside>
         {isDetailOpen && <RestaurantInfoModal restaurant={detailRestaurant} closeDetail={closeDetail} />}
-        {isAddRestaurantOpen && <AddRestaurantModal addRestaurant={addRestaurant} closeAddRestaurant={closeAddRestaurant} />}
+        {isAddRestaurantOpen && <AddRestaurantModal closeAddRestaurant={closeAddRestaurant} />}
       </aside>
     </>
   );

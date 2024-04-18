@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Modal from '../Modal';
 import styles from './add-restaurant-modal.module.css';
+import { addRestaurants } from '../../../api/restaurant-api';
 
-export default function AddRestaurantModal({ addRestaurant, closeAddRestaurant }) {
+export default function AddRestaurantModal({ closeAddRestaurant }) {
   const [restaurant, setRestaurant] = useState({
     name: '',
     category: '',
@@ -11,7 +12,8 @@ export default function AddRestaurantModal({ addRestaurant, closeAddRestaurant }
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    addRestaurant(restaurant);
+
+    addRestaurants(restaurant);
     closeAddRestaurant();
   };
 
